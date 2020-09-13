@@ -116,6 +116,10 @@ var _pokemon = __webpack_require__(/*! ../redux/pokemon */ "./app/redux/pokemon.
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+var _WhosThatPokemon = __webpack_require__(/*! ./WhosThatPokemon */ "./app/components/WhosThatPokemon.js");
+
+var _WhosThatPokemon2 = _interopRequireDefault(_WhosThatPokemon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -174,11 +178,11 @@ var Pokemon = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'pokemon' },
-				_react2.default.createElement(
+				!this.state.loaded ? _react2.default.createElement(
 					'h4',
 					null,
-					'I am Pokemon'
-				)
+					'Loading'
+				) : _react2.default.createElement(_WhosThatPokemon2.default, { pokemon: this.props.pokemon })
 			);
 		}
 	}]);
@@ -252,6 +256,96 @@ var Routes = function Routes() {
 };
 
 exports.default = Routes;
+
+/***/ }),
+
+/***/ "./app/components/WhosThatPokemon.js":
+/*!*******************************************!*\
+  !*** ./app/components/WhosThatPokemon.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(/*! ../../public/WhosThatPokemon.css */ "./public/WhosThatPokemon.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WhosThatPokemon = function (_Component) {
+  _inherits(WhosThatPokemon, _Component);
+
+  function WhosThatPokemon() {
+    _classCallCheck(this, WhosThatPokemon);
+
+    var _this = _possibleConstructorReturn(this, (WhosThatPokemon.__proto__ || Object.getPrototypeOf(WhosThatPokemon)).call(this));
+
+    _this.onChange = function (e) {
+      console.log(e.target.value);
+      _this.setState = {
+        inputField: e.target.value
+      };
+      console.log(_this.state);
+    };
+
+    _this.state = {
+      inputField: ''
+    };
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(WhosThatPokemon, [{
+    key: 'render',
+    value: function render() {
+      console.log("checking props", this.props.pokemon);
+      var pokemon = this.props.pokemon;
+      return _react2.default.createElement(
+        'div',
+        { className: 'whosThatPokemon' },
+        _react2.default.createElement(
+          'h4',
+          null,
+          pokemon.name.slice(0, 1).toUpperCase() + pokemon.name.slice(1)
+        ),
+        _react2.default.createElement('img', { src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon.id + '.png' }),
+        _react2.default.createElement('input', {
+          name: 'inputField',
+          type: 'text',
+          value: this.state.inputField,
+          onChange: this.onChange,
+          placeholder: 'Who\'s that pokemon?'
+        }),
+        _react2.default.createElement(
+          'button',
+          { type: 'submit' },
+          'Submit'
+        )
+      );
+    }
+  }]);
+
+  return WhosThatPokemon;
+}(_react.Component);
+
+exports.default = WhosThatPokemon;
 
 /***/ }),
 
@@ -13300,6 +13394,21 @@ module.exports = __webpack_require__(/*! ./modules/_core */ "./node_modules/core
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
 exports.push([module.i, "", ""]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./public/WhosThatPokemon.css":
+/*!**************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./public/WhosThatPokemon.css ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".whosThatPokemon > img {\n  width: 30%;\n  filter: contrast(0%) brightness(0%)\n}\n\n.whosThatPokemon {\n  display: flex;\n  flex-direction: column;\n  border: 1px solid black;\n  align-items: center;\n}\n", ""]);
 
 
 
@@ -45523,6 +45632,36 @@ module.exports = function(originalModule) {
 
 
 var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./Pokemon.css */ "./node_modules/css-loader/dist/cjs.js!./public/Pokemon.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./public/WhosThatPokemon.css":
+/*!************************************!*\
+  !*** ./public/WhosThatPokemon.css ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./WhosThatPokemon.css */ "./node_modules/css-loader/dist/cjs.js!./public/WhosThatPokemon.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
