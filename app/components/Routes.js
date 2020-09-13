@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Pokemon from './Pokemon';
 
 const Routes = () => {
 	return (
@@ -7,7 +8,7 @@ const Routes = () => {
 			<div>
 				<nav>Welcome!</nav>
 				<main>
-					<h1>Pokemon</h1>
+					<Pokemon />
 				</main>
 			</div>
 		</Router>
