@@ -270,7 +270,7 @@ exports.default = Routes;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -292,107 +292,119 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var WhosThatPokemon = function (_Component) {
-	_inherits(WhosThatPokemon, _Component);
+  _inherits(WhosThatPokemon, _Component);
 
-	function WhosThatPokemon(props) {
-		_classCallCheck(this, WhosThatPokemon);
+  function WhosThatPokemon(props) {
+    _classCallCheck(this, WhosThatPokemon);
 
-		var _this = _possibleConstructorReturn(this, (WhosThatPokemon.__proto__ || Object.getPrototypeOf(WhosThatPokemon)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (WhosThatPokemon.__proto__ || Object.getPrototypeOf(WhosThatPokemon)).call(this, props));
 
-		_this.handleSubmit = function (e) {
-			e.preventDefault();
-			//Evaluate
-			var guess = _this.state.inputField.toUpperCase();
-			if (guess === _this.state.pokemonName) {
-				_this.setState({
-					isCorrect: true,
-					hasValue: true
-				});
-			} else {
-				_this.setState({
-					hasValue: true
-				});
-			}
-			_this.setState({
-				inputField: ''
-			});
-		};
+    _this.handleSubmit = function (e) {
+      e.preventDefault();
+      console.log("target2", _this.state.inputField);
+      //Evaluate
+      var guess = _this.state.inputField.toUpperCase();
+      if (guess === _this.state.pokemonName) {
+        _this.setState({
+          hasValue: true,
+          isCorrect: true
+        });
+      } else {
+        _this.setState({
+          hasValue: true
+        });
+      }
+      _this.setState({
+        inputField: ""
+      });
+    };
 
-		_this.onChange = function (e) {
-			_this.setState(_defineProperty({}, event.target.name, event.target.value));
-		};
+    _this.onChange = function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    };
 
-		_this.state = {
-			pokemonName: '',
-			inputField: '',
-			hasValue: false
-		};
-		_this.onChange = _this.onChange.bind(_this);
-		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		return _this;
-	}
+    _this.state = {
+      pokemonName: "",
+      inputField: "",
+      hasValue: false,
+      isCorrect: false
+    };
+    _this.onChange = _this.onChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+    return _this;
+  }
 
-	_createClass(WhosThatPokemon, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.setState({
-				pokemonName: this.props.pokemon.name.toUpperCase()
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			console.log(this.state);
-			var pokemon = this.props.pokemon;
-			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.handleSubmit },
-				_react2.default.createElement(
-					'div',
-					{ className: 'whosThatPokemon' },
-					_react2.default.createElement(
-						'h3',
-						null,
-						'Who\'s That Pokemon?'
-					),
-					_react2.default.createElement(
-						'h4',
-						{ hidden: this.state.hasValue ? false : true },
-						pokemon.name.slice(0, 1).toUpperCase() + pokemon.name.slice(1)
-					),
-					_react2.default.createElement('img', {
-						className: this.state.hasValue ? 'whosThatPokemon__img__active' : 'whosThatPokemon__img__disabled',
-						src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon.id + '.png'
-					}),
-					_react2.default.createElement(
-						'h4',
-						{ hidden: this.state.hasValue ? false : true },
-						this.state.isCorrect ? 'CORRECT' : 'INCORRECT'
-					),
-					_react2.default.createElement('input', {
-						name: 'inputField',
-						type: 'text',
-						value: this.state.inputField,
-						onChange: this.onChange,
-						placeholder: "Who's that pokemon?",
-						hidden: this.state.hasValue ? true : false
-					}),
-					_react2.default.createElement(
-						'button',
-						{ hidden: this.state.hasValue ? true : false, type: 'submit' },
-						'Submit'
-					),
-					_react2.default.createElement(
-						'button',
-						{ hidden: this.state.hasValue ? false : true, type: 'button' },
-						'Next'
-					)
-				)
-			);
-		}
-	}]);
+  _createClass(WhosThatPokemon, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        pokemonName: this.props.pokemon.name.toUpperCase()
+      });
+    }
+  }, {
+    key: "handleKeyPress",
+    value: function handleKeyPress(e) {
+      if (e.key === "Enter") {
+        console.log("target1", e.target.value);
+        this.handleSubmit(e);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      var pokemon = this.props.pokemon;
+      return _react2.default.createElement(
+        "form",
+        { onSubmit: this.handleSubmit },
+        _react2.default.createElement(
+          "div",
+          { className: "whosThatPokemon" },
+          _react2.default.createElement(
+            "h3",
+            null,
+            "Who's That Pokemon?"
+          ),
+          _react2.default.createElement(
+            "h4",
+            { hidden: this.state.hasValue ? false : true },
+            pokemon.name.slice(0, 1).toUpperCase() + pokemon.name.slice(1)
+          ),
+          _react2.default.createElement("img", {
+            className: this.state.hasValue ? "whosThatPokemon__img__active" : "whosThatPokemon__img__disabled",
+            src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokemon.id + ".png"
+          }),
+          _react2.default.createElement(
+            "h4",
+            { hidden: this.state.hasValue ? false : true },
+            this.state.isCorrect ? "CORRECT" : "INCORRECT"
+          ),
+          _react2.default.createElement("input", {
+            name: "inputField",
+            type: "text",
+            value: this.state.inputField,
+            onChange: this.onChange,
+            placeholder: "Who's that pokemon?",
+            hidden: this.state.hasValue ? true : false,
+            onKeyPress: this.handleKeyPress
+          }),
+          _react2.default.createElement(
+            "button",
+            { hidden: this.state.hasValue ? true : false, type: "submit" },
+            "Submit"
+          ),
+          _react2.default.createElement(
+            "button",
+            { hidden: this.state.hasValue ? false : true, type: "button" },
+            "Next"
+          )
+        )
+      );
+    }
+  }]);
 
-	return WhosThatPokemon;
+  return WhosThatPokemon;
 }(_react.Component);
 
 exports.default = WhosThatPokemon;

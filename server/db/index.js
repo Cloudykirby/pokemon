@@ -2,6 +2,7 @@
 // with your models, for which you'll find some blank files in this directory:
 
 const db = require('./database');
+const pokemon = require('./models/pokemon')
 // const Project = require('./project')
 // const Robot = require('./robot')
 
@@ -13,5 +14,5 @@ const db = require('./database');
 
 module.exports = {
 	// Include your models in this exports object as well!
-	db,
+	db, pokemon
 };
