@@ -20,7 +20,6 @@ export const retrievePokemon = () => {
 			const { data: pokemon } = await axios.get(
 				'https://pokeapi.co/api/v2/pokemon/1'
 			);
-			console.log(pokemon);
 			dispatch(gotPokemon(pokemon));
 		} catch (error) {
 			console.error(error);

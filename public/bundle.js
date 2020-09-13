@@ -270,7 +270,7 @@ exports.default = Routes;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -283,6 +283,8 @@ __webpack_require__(/*! ../../public/WhosThatPokemon.css */ "./public/WhosThatPo
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -290,59 +292,107 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var WhosThatPokemon = function (_Component) {
-  _inherits(WhosThatPokemon, _Component);
+	_inherits(WhosThatPokemon, _Component);
 
-  function WhosThatPokemon() {
-    _classCallCheck(this, WhosThatPokemon);
+	function WhosThatPokemon(props) {
+		_classCallCheck(this, WhosThatPokemon);
 
-    var _this = _possibleConstructorReturn(this, (WhosThatPokemon.__proto__ || Object.getPrototypeOf(WhosThatPokemon)).call(this));
+		var _this = _possibleConstructorReturn(this, (WhosThatPokemon.__proto__ || Object.getPrototypeOf(WhosThatPokemon)).call(this, props));
 
-    _this.onChange = function (e) {
-      console.log(e.target.value);
-      _this.setState = {
-        inputField: e.target.value
-      };
-      console.log(_this.state);
-    };
+		_this.handleSubmit = function (e) {
+			e.preventDefault();
+			//Evaluate
+			var guess = _this.state.inputField.toUpperCase();
+			if (guess === _this.state.pokemonName) {
+				_this.setState({
+					isCorrect: true,
+					hasValue: true
+				});
+			} else {
+				_this.setState({
+					hasValue: true
+				});
+			}
+			_this.setState({
+				inputField: ''
+			});
+		};
 
-    _this.state = {
-      inputField: ''
-    };
-    _this.onChange = _this.onChange.bind(_this);
-    return _this;
-  }
+		_this.onChange = function (e) {
+			_this.setState(_defineProperty({}, event.target.name, event.target.value));
+		};
 
-  _createClass(WhosThatPokemon, [{
-    key: 'render',
-    value: function render() {
-      console.log("checking props", this.props.pokemon);
-      var pokemon = this.props.pokemon;
-      return _react2.default.createElement(
-        'div',
-        { className: 'whosThatPokemon' },
-        _react2.default.createElement(
-          'h4',
-          null,
-          pokemon.name.slice(0, 1).toUpperCase() + pokemon.name.slice(1)
-        ),
-        _react2.default.createElement('img', { src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon.id + '.png' }),
-        _react2.default.createElement('input', {
-          name: 'inputField',
-          type: 'text',
-          value: this.state.inputField,
-          onChange: this.onChange,
-          placeholder: 'Who\'s that pokemon?'
-        }),
-        _react2.default.createElement(
-          'button',
-          { type: 'submit' },
-          'Submit'
-        )
-      );
-    }
-  }]);
+		_this.state = {
+			pokemonName: '',
+			inputField: '',
+			hasValue: false
+		};
+		_this.onChange = _this.onChange.bind(_this);
+		_this.handleSubmit = _this.handleSubmit.bind(_this);
+		return _this;
+	}
 
-  return WhosThatPokemon;
+	_createClass(WhosThatPokemon, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.setState({
+				pokemonName: this.props.pokemon.name.toUpperCase()
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			console.log(this.state);
+			var pokemon = this.props.pokemon;
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: this.handleSubmit },
+				_react2.default.createElement(
+					'div',
+					{ className: 'whosThatPokemon' },
+					_react2.default.createElement(
+						'h3',
+						null,
+						'Who\'s That Pokemon?'
+					),
+					_react2.default.createElement(
+						'h4',
+						{ hidden: this.state.hasValue ? false : true },
+						pokemon.name.slice(0, 1).toUpperCase() + pokemon.name.slice(1)
+					),
+					_react2.default.createElement('img', {
+						className: this.state.hasValue ? 'whosThatPokemon__img__active' : 'whosThatPokemon__img__disabled',
+						src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon.id + '.png'
+					}),
+					_react2.default.createElement(
+						'h4',
+						{ hidden: this.state.hasValue ? false : true },
+						this.state.isCorrect ? 'CORRECT' : 'INCORRECT'
+					),
+					_react2.default.createElement('input', {
+						name: 'inputField',
+						type: 'text',
+						value: this.state.inputField,
+						onChange: this.onChange,
+						placeholder: "Who's that pokemon?",
+						hidden: this.state.hasValue ? true : false
+					}),
+					_react2.default.createElement(
+						'button',
+						{ hidden: this.state.hasValue ? true : false, type: 'submit' },
+						'Submit'
+					),
+					_react2.default.createElement(
+						'button',
+						{ hidden: this.state.hasValue ? false : true, type: 'button' },
+						'Next'
+					)
+				)
+			);
+		}
+	}]);
+
+	return WhosThatPokemon;
 }(_react.Component);
 
 exports.default = WhosThatPokemon;
@@ -475,23 +525,22 @@ var retrievePokemon = exports.retrievePokemon = function retrievePokemon() {
 							_ref2 = _context.sent;
 							pokemon = _ref2.data;
 
-							console.log(pokemon);
 							dispatch(gotPokemon(pokemon));
-							_context.next = 12;
+							_context.next = 11;
 							break;
 
-						case 9:
-							_context.prev = 9;
+						case 8:
+							_context.prev = 8;
 							_context.t0 = _context['catch'](0);
 
 							console.error(_context.t0);
 
-						case 12:
+						case 11:
 						case 'end':
 							return _context.stop();
 					}
 				}
-			}, _callee, undefined, [[0, 9]]);
+			}, _callee, undefined, [[0, 8]]);
 		}));
 
 		return function (_x) {
@@ -13408,7 +13457,7 @@ exports.push([module.i, "", ""]);
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".whosThatPokemon > img {\n  width: 30%;\n  filter: contrast(0%) brightness(0%)\n}\n\n.whosThatPokemon {\n  display: flex;\n  flex-direction: column;\n  border: 1px solid black;\n  align-items: center;\n}\n", ""]);
+exports.push([module.i, "/* .whosThatPokemon > img {\n  width: 30%;\n  filter: contrast(0%) brightness(0%)\n} */\n\n.whosThatPokemon {\n\tdisplay: flex;\n\tflex-direction: column;\n\tborder: 1px solid black;\n\talign-items: center;\n}\n\n.whosThatPokemon__img__disabled {\n\twidth: 30%;\n\tfilter: contrast(0%) brightness(0%);\n}\n\n.whosThatPokemon__img__active {\n\twidth: 30%;\n}\n", ""]);
 
 
 
