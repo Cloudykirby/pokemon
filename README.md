@@ -2,6 +2,9 @@
 
 A Pokemon app.
 
+To see a deployed version of the code: https://pokedex-concept.herokuapp.com/
+
+
 ## Setup
 
 ### MacOS/Linux
