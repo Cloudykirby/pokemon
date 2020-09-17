@@ -18,6 +18,7 @@ class Pokemon extends React.Component {
 	}
 
 	render() {
+		console.log('props',this.props.pokemon)
 		return (
 			<div className="pokemon">
 				{!this.state.loaded ? (
