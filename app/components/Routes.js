@@ -6,7 +6,7 @@ const Routes = () => {
 	return (
 		<Router>
 			<div>
-				<nav>Welcome!</nav>
+				{/* <nav>Welcome!</nav> */}
 				<main>
 					<Pokemon />
 				</main>

@@ -6,15 +6,49 @@
 .whosThatPokemon {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid black;
-	align-items: center;
+	height: 100%;
+	background-image: url('https://i0.wp.com/www.alphr.com/wp-content/uploads/2016/07/whos_that_pokemon.png?fit=1920%2C1080&ssl=1');
+	background-repeat: repeat-x;
+	background-size: cover;
+	background-position: center;
 }
 
 .whosThatPokemon__img__disabled {
-	width: 30%;
+	width: 40%;
 	filter: contrast(0%) brightness(0%);
 }
 
 .whosThatPokemon__img__active {
-	width: 30%;
+	width: 40%;
+}
+
+.whosThatPokemon__img {
+	padding: 40px;
+	padding-bottom: 40px;
+}
+
+.whosThatPokemon__score {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.whosThatPokemon__score > h4 {
+	margin-right: 20px;
+	font-size: 20px;
+}
+
+.whosThatPokemon__input {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.whosThatPokemon__name {
+	width: 50%;
+}
+.whosThatPokemon__name > h4 {
+	text-align: center;
+	font-size: 25px;
+	font-weight: 800px;
 }

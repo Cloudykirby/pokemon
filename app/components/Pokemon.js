@@ -3,7 +3,7 @@ import '../../public/Pokemon.css';
 import store from '../store';
 import { retrievePokemon } from '../redux/pokemon';
 import { connect } from 'react-redux';
-import WhosThatPokemon from './WhosThatPokemon'
+import WhosThatPokemon from './WhosThatPokemon';
 
 class Pokemon extends React.Component {
 	constructor() {
@@ -18,13 +18,13 @@ class Pokemon extends React.Component {
 	}
 
 	render() {
-		console.log('props',this.props.pokemon)
+		console.log('props', this.props.pokemon);
 		return (
 			<div className="pokemon">
 				{!this.state.loaded ? (
 					<h4>Loading</h4>
 				) : (
-					<WhosThatPokemon pokemon = {this.props.pokemon}/>
+					<WhosThatPokemon pokemon={this.props.pokemon} score={this.score} />
 				)}
 			</div>
 		);
